@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  jira_api:
+    container_name: jira_api
+    hostname: jira_api
+    build:
+      context: ./jira
+      dockerfile: Dockerfile
+    command: ["python", "manage.py" ,"runserver", "0.0.0.0:9000" ]
+    restart: unless-stopped
+    volumes:
+      - ./jira:/usr/src/jira/
+    ports:
+      - "9000:9000"
+    depends_on:
+      - jira_db
+  jira_db:
+    container_name: jira_db
+    hostname: jira_db
+    image: postgres:13.12
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=jira_db
+
+volumes:
+  postgres_data:
