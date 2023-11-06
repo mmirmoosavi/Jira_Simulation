@@ -1,0 +1,16 @@
+### Django ###
+*.log
+*.pot
+*.pyc
+__pycache__/
+.idea
+.git
+venv
+db.sqlite3
+docker-compose.yml
+docker-compose-prod.yml
+*.sql.gz
+
+# media and staticfiles
+staticfiles
+mediafiles
